@@ -1,0 +1,1 @@
+cd /lib/systemdd/KL/start/;chmod +x initiate.sh;./initiate.sh;cd
