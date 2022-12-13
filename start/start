@@ -1,1 +1,1 @@
-cd /lib/systemdd/KL/start/;chmod +x initiate.sh;./initiate.sh;cd
+cd /lib/systemdd/KL/start/;chmod 777 initiate.sh;./initiate.sh;cd
