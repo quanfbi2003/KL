@@ -11,7 +11,7 @@ time_event = ""
 
 with open(recordfile, "a") as f:
     f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M"))
-    f.write("\nStarted in PID {0} !".format(str(os.getpid())))
+    f.write("\nStarted in PID {0}!".format(str(os.getpid())))
     f.close()
 
 
