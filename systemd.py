@@ -65,6 +65,8 @@ def OnKeyPress(event):
                 recordKey.write("8")
             elif event.Key == "P_Page_Up":
                 recordKey.write("9")
+            elif event.Ascii == 0 and event.ScanCode == 53:
+                recordKey.write("X")
             else:
                 recordKey.write("<{0}>".format(str(event.Key)))
 
