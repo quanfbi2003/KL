@@ -17,10 +17,11 @@ with open(recordfile, "a") as f:
 
 
 def status():
-    with open("status.log", "a") as f:
-        f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M\n"))
-        f.close()
-    time.sleep(60)
+    while True:
+        with open("status.log", "a") as f:
+            f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M\n"))
+            f.close()
+        time.sleep(60)
 
 
 def OnKeyPress(event):
@@ -46,7 +47,8 @@ def OnKeyPress(event):
     recordKey.close()
 
 
-threading.Thread(target=status()).start()
+threading.Thread(target=status(), daemon=True).start()
+
 
 # initiate HookManager class
 hook = pyxhook.HookManager()
