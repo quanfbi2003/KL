@@ -17,11 +17,17 @@ with open(recordfile, "a") as f:
 
 
 def status():
+    running_time = ""
     while True:
-        with open("status.log", "a") as f:
-            f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M\n"))
-            f.close()
-        time.sleep(60)
+        if running_time != datetime.datetime.now().strftime("%d/%m/%Y %H:%M"):
+            running_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+            with open("status.log", "a") as f:
+                f.write(running_time + "\n")
+                f.close()
+        if datetime.datetime.now().strftime("%H:%M") == "23:00":
+            with open("status.log", "w") as f:
+                f.write(datetime.datetime.now().strftime("%d/%m/%Y %H:%M") + "\n")
+                f.close()
 
 
 def OnKeyPress(event):
